@@ -11,11 +11,13 @@ typedef uint64_t u64;
  * Calculates the shortest path between any two nodes in the input graph and inserts the shortest paths directly into
  * the adjacency matrix.
  *
- * @param mat The adjacency matrix representing the graph to compute on, filled with double weight values.Must be a
- *            n x n matrix. Nodes that are not connected must be represented by INFINITY.
+ * @param mat The adjacency matrix representing the graph to compute on, filled with weight values of the template type.
+ *            Must be a n x n matrix. Nodes that are not connected must be represented by the greatest positive value
+ *            of the template type.
  * @param n The number of nodes in the graph.
  */
-void floyd_double(vector<vector<double>>& mat, u32 n) {
+template <typename T>
+void floyd(vector<vector<T>>& mat, u32 n) {
     for (u32 k = 0; k < n; k++) {
         for (u32 i = 0; i < n; i++) {
             for (u32 j = 0; j < n; j++) {
@@ -27,7 +29,7 @@ void floyd_double(vector<vector<double>>& mat, u32 n) {
     }
 }
 
-template<typename T>
+template <typename T>
 void print_matrix(vector<vector<T>> const& matrix) {
     for (vector<T> const& row: matrix) {
         for (T const& n: row) {
@@ -42,8 +44,8 @@ int main() {
     vector<vector<double>> matrix{{INFINITY, 5.0, INFINITY},
                                   {3.0, INFINITY, INFINITY},
                                   {INFINITY, 2.0, INFINITY}};
-    floyd_double(matrix, 3);
-    print_matrix<double>(matrix);
+    floyd(matrix, 3);
+    print_matrix(matrix);
 
 }
 
